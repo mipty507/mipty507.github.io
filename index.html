@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>miPTY</title>
+<title>Wepa · tu guía de Panamá</title>
 <meta name="theme-color" content="#00a6a6">
 <script>document.write('<script src="config.js?v=' + Date.now() + '"><\/script>')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,33 +112,48 @@
 
   /* contacts WhatsApp : bouton flottant + panneau */
   #waBtn { position: absolute; right: 14px; bottom: 164px; z-index: 5; display: flex; align-items: center; gap: 7px;
-           background: var(--wa, #25d366); color: #0b3d1f; border: 2px solid var(--ink); border-radius: 999px; padding: 9px 15px 9px 12px;
+           background: var(--mango); color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 9px 15px 9px 12px;
            font: 800 14px Figtree, sans-serif; cursor: pointer; box-shadow: 3px 3px 0 var(--ink); }
-  #waBtn svg { width: 20px; height: 20px; }
+  #waBtn .cmp { font-size: 19px; display: inline-block; animation: spin 7s ease-in-out infinite; }
+  @keyframes spin { 0%, 80% { transform: rotate(0); } 88% { transform: rotate(-25deg); } 96% { transform: rotate(15deg); } 100% { transform: rotate(0); } }
+  @media (prefers-reduced-motion: reduce) { #waBtn .cmp { animation: none; } }
   body.chatting #waBtn { bottom: 108px; }
   body.chatting #chat { padding-bottom: 64px; }
   #waBtn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-  #dir { width: min(96vw, 560px); }
-  #dir .head { padding: 16px 56px 8px 16px; }
-  #dir h3 { margin: 0; font: 18px Bungee, sans-serif; }
-  #dir .note { font-size: 12px; color: var(--muted); margin-top: 4px; }
-  #dir .cats { display: flex; gap: 8px; overflow-x: auto; padding: 8px 16px; }
-  #dir .cats button { flex: none; border: 2px solid var(--ink); background: #fff; border-radius: 999px; padding: 6px 12px; font: 700 13px Figtree, sans-serif; cursor: pointer; }
-  #dir .cats button.on { background: var(--mango); }
-  #dir .search { margin: 4px 16px 8px; width: calc(100% - 32px); border: 2px solid var(--ink); border-radius: 999px; padding: 8px 14px; font: 15px Figtree, sans-serif; }
-  #dir .list { max-height: 60vh; overflow-y: auto; padding: 0 16px 16px; }
-  .crow { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1.5px dashed #cfd8d7; }
-  .crow .ic { font-size: 22px; width: 30px; text-align: center; flex: none; }
-  .crow .tx { flex: 1; min-width: 0; font-size: 14px; line-height: 1.35; }
+  #dir { width: min(96vw, 560px); background: var(--sea); }
+  #dir .head { padding: 18px 56px 6px 16px; }
+  #dir h3 { margin: 0; font: 26px/1.05 Bungee, sans-serif; text-shadow: 2px 2px 0 var(--mango); }
+  #dir .note { font-size: 11px; color: var(--muted); padding: 0 16px 10px; }
+  #dir .cats { display: flex; gap: 10px; overflow-x: auto; padding: 10px 16px 12px; scrollbar-width: none; }
+  #dir .cats button { flex: none; width: 76px; height: 76px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    border: 2px solid var(--ink); border-radius: 18px; background: var(--tile, #fff); cursor: pointer; font: 700 11px/1.1 Figtree, sans-serif;
+    box-shadow: 3px 3px 0 var(--ink); transition: transform .12s; text-align: center; padding: 4px; }
+  #dir .cats button span { font-size: 28px; line-height: 1; }
+  #dir .cats button.on { transform: translate(-2px, -3px) rotate(-3deg); box-shadow: 5px 6px 0 var(--ink); outline: 3px solid #fff; }
+  #dir .tools { display: flex; gap: 8px; margin: 0 16px 10px; }
+  #dir .search { flex: 1; min-width: 0; border: 2px solid var(--ink); border-radius: 999px; padding: 8px 14px; font: 15px Figtree, sans-serif; background: #fff; }
+  #dir .luck { flex: none; border: 2px solid var(--ink); border-radius: 999px; background: #fff; padding: 0 12px; font: 800 13px Figtree, sans-serif; cursor: pointer; box-shadow: 2px 2px 0 var(--ink); }
+  #dir .list { max-height: 56vh; overflow-y: auto; padding: 2px 16px 16px; display: grid; gap: 10px; }
+  .crow { display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 10px; background: #fff; border: 2px solid var(--ink); border-radius: 16px;
+    box-shadow: 3px 3px 0 var(--tile, var(--mango)); }
+  .crow.pick { animation: pick .9s ease; }
+  @keyframes pick { 30% { transform: scale(1.04) rotate(-1deg); box-shadow: 6px 6px 0 var(--ink); } }
+  @media (prefers-reduced-motion: reduce) { .crow.pick { animation: none; } }
+  .crow .ic { flex: none; width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--ink); background: var(--tile, var(--mango));
+    display: grid; place-items: center; font-size: 23px; }
+  .crow .tx { flex: 1; min-width: 0; font-size: 13.5px; line-height: 1.35; }
   .crow .tx b { display: block; font-size: 15px; }
   .crow .tx small { color: var(--muted); display: block; }
+  .crow .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+  .crow .chips i { font-style: normal; font-size: 11px; font-weight: 700; border: 1.5px solid var(--ink); border-radius: 999px; padding: 0 7px; background: var(--sea); }
   .crow .tag { font-size: 10px; font-weight: 800; border: 1.5px solid var(--ink); border-radius: 6px; padding: 0 4px; background: var(--mango); margin-left: 4px; }
-  .crow a.go { flex: none; width: 44px; height: 44px; border-radius: 50%; background: #25d366; border: 2px solid var(--ink);
-               display: grid; place-items: center; box-shadow: 2px 2px 0 var(--ink); }
+  .crow a.go { flex: none; display: flex; flex-direction: column; align-items: center; gap: 1px; min-width: 54px; padding: 6px 6px 4px; border-radius: 14px;
+    background: #25d366; border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); color: var(--ink); text-decoration: none; font: 800 10.5px Figtree, sans-serif; }
   .crow a.go svg { width: 22px; height: 22px; }
+  .crow a.go .e { font-size: 20px; line-height: 22px; }
   .crow a.go:active { transform: translate(2px, 2px); box-shadow: none; }
-  #dir .none { color: var(--muted); font-size: 14px; padding: 14px 0; }
-  .crow a.go.web, .crow a.go.map { background: #fff; font-size: 20px; text-decoration: none; }
+  .crow a.go.web, .crow a.go.map { background: #fff; }
+  #dir .none { color: var(--muted); font-size: 15px; padding: 24px 0; text-align: center; }
   /* sous une recommandation : un bouton par adresse ; sous une réponse : un lien vers les contacts du sujet */
   .recos { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 6px; max-width: 92%; }
   .recos a, .recos button { display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--ink); border-radius: 999px;
@@ -189,11 +204,11 @@
 <div class="app">
 <header>
   <div class="bar">
-    <div class="av" aria-hidden="true"><div class="ring"></div><div class="pic" id="avpic">mi</div></div>
-    <div class="who"><div class="name" id="name">miPTY</div><div class="sub" id="sub"></div></div>
+    <div class="av" aria-hidden="true"><div class="ring"></div><div class="pic" id="avpic">W!</div></div>
+    <div class="who"><div class="name" id="name">Wepa</div><div class="sub" id="sub"></div></div>
     <div id="langs"><button data-l="es">ES</button><button data-l="en">EN</button><button data-l="fr">FR</button></div>
   </div>
-  <figure class="window" id="win" aria-live="off"><div class="empty">PTY</div><figcaption class="cap" id="cap"></figcaption></figure>
+  <figure class="window" id="win" aria-live="off"><div class="empty">¡WEPA!</div><figcaption class="cap" id="cap"></figcaption></figure>
 </header>
 <div id="chat" aria-live="polite"></div>
 <div id="chips"></div>
@@ -202,9 +217,9 @@
   <button id="send" aria-label="send">➤</button>
 </form>
 <footer id="foot"></footer>
-<button id="waBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0b3d1f" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg><span id="waLab">Contactos</span></button>
+<template id="waSvg"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0b3d1f" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2.1.7 2.8.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg></template><button id="waBtn" type="button"><span class="cmp" aria-hidden="true">🧭</span><span id="waLab">Explorar</span></button>
 </div>
-<dialog id="dir"><form method="dialog"><button aria-label="close">✕</button></form><div class="head"><h3 id="dirT"></h3><div class="note" id="dirN"></div></div><div class="cats" id="dirC"></div><input class="search" id="dirQ" autocomplete="off"><div class="list" id="dirList"></div><div class="propose"><button type="button" id="propBtn"></button></div><div id="propBox" hidden></div></dialog>
+<dialog id="dir"><form method="dialog"><button aria-label="close">✕</button></form><div class="head"><h3 id="dirT"></h3></div><div class="cats" id="dirC"></div><div class="tools"><input class="search" id="dirQ" autocomplete="off"><button type="button" class="luck" id="dirLuck"></button></div><div class="list" id="dirList"></div><div class="note" id="dirN"></div><div class="propose"><button type="button" id="propBtn"></button></div><div id="propBox" hidden></div></dialog>
 <dialog id="zoom"><form method="dialog"><button aria-label="close">✕</button></form><img id="zimg" alt=""><p id="zcap"></p><a id="zcred" target="_blank" rel="noopener"></a></dialog>
 
 <script>
@@ -218,7 +233,7 @@ const ALL = {
   es: {sub: "Tu guía de Panamá, 24 h", ph: "Pregunta lo que quieras…", queue: n => `Hay ${n} pregunta(s) antes de la tuya`,
        know: "¿Sabías que…", slow: "Busco en mis fichas, puede tardar hasta un minuto.",
        foot: "Asistente automático de Neuralytic. La información es indicativa: confirma precios y horarios con el hotel.",
-       hello: "¡Hola! Soy miPTY. Pregúntame sobre transporte, San Blas, Bocas, Boquete, presupuesto o seguridad en Panamá.",
+       hello: "¡Qué xopá! Soy Wepa. Pregúntame sobre transporte, San Blas, Bocas, Boquete, presupuesto o seguridad en Panamá.",
        chips: ["✈️ ¿Cómo llego del aeropuerto?", "🏝️ ¿Cómo ir a San Blas?", "🌙 ¿Es seguro Casco Viejo de noche?"], err: "No pude conectarme. Revisa tu conexión y vuelve a intentarlo.",
        facts: ["En Panamá se paga en dólares; el balboa solo existe en monedas.",
                "Desde la cima del volcán Barú (3 475 m), en días claros se ven el Pacífico y el Caribe.",
@@ -234,7 +249,7 @@ const ALL = {
   en: {sub: "Your Panama guide, 24/7", ph: "Ask me anything…", queue: n => `${n} question(s) ahead of yours`,
        know: "Did you know…", slow: "I'm checking my notes, this can take up to a minute.",
        foot: "Automated assistant by Neuralytic. Information is indicative: confirm prices and times with the hotel.",
-       hello: "Hi! I'm miPTY. Ask me about getting around, San Blas, Bocas, Boquete, budget or safety in Panama.",
+       hello: "¡Qué xopá! (that's Panamanian for “what's up”) I'm Wepa. Ask me about getting around, San Blas, Bocas, Boquete, budget or safety in Panama.",
        chips: ["✈️ How do I get from the airport?", "🏝️ How to get to San Blas?", "🌙 Is Casco Viejo safe at night?"], err: "I couldn't connect. Check your connection and try again.",
        facts: ["Panama uses the US dollar; the balboa only exists as coins.",
                "On a clear day, you can see both the Pacific and the Caribbean from the top of Volcán Barú (3,475 m).",
@@ -250,7 +265,7 @@ const ALL = {
   fr: {sub: "Ton guide du Panama, 24 h/24", ph: "Pose ta question…", queue: n => `${n} question(s) avant la tienne`,
        know: "Le savais-tu ?", slow: "Je cherche dans mes fiches, ça peut prendre jusqu'à une minute.",
        foot: "Assistant automatique de Neuralytic. Informations indicatives : confirme prix et horaires avec l'hôtel.",
-       hello: "Salut ! Je suis miPTY. Pose-moi tes questions sur les transports, les San Blas, Bocas, Boquete, le budget ou la sécurité au Panama.",
+       hello: "¡Qué xopá ! (« quoi de neuf ? » en panaméen) Je suis Wepa. Pose-moi tes questions sur les transports, les San Blas, Bocas, Boquete, le budget ou la sécurité au Panama.",
        chips: ["✈️ Comment venir de l'aéroport ?", "🏝️ Comment aller aux San Blas ?", "🌙 Casco Viejo, c'est sûr le soir ?"], err: "Connexion impossible. Vérifie ta connexion et réessaie.",
        facts: ["Au Panama, on paie en dollars ; le balboa n'existe qu'en pièces.",
                "Par temps clair, du sommet du volcan Barú (3 475 m), on voit le Pacifique et la mer des Caraïbes.",
@@ -337,33 +352,33 @@ function photoRow(photos) {
 
 // ---------- les contacts WhatsApp : bouton flottant + panneau par rubrique ----------
 const CT = {
-  es: {btn: "Contactos", more: "Ver contactos", title: "Reserva y contactos", all: "Todo", search: "Buscar: San Blas, buceo, Boquete…", partner: "Socio", none: "Nada por aquí.",
-       note: "Números publicados por los propios negocios (sin WhatsApp, el botón abre su web o el mapa). miPTY no cobra ni garantiza el servicio: confirma precio y condiciones con ellos."},
-  en: {btn: "Contacts", more: "See contacts", title: "Book & contacts", all: "All", search: "Search: San Blas, diving, Boquete…", partner: "Partner", none: "Nothing here.",
-       note: "Numbers published by the businesses themselves (no WhatsApp: the button opens their website or the map). miPTY takes no fee and doesn't guarantee the service: confirm price and terms with them."},
-  fr: {btn: "Contacts", more: "Voir les contacts", title: "Réserver et contacter", all: "Tout", search: "Chercher : San Blas, plongée, Boquete…", partner: "Partenaire", none: "Rien par ici.",
-       note: "Numéros publiés par les établissements eux-mêmes (sans WhatsApp, le bouton ouvre leur site ou la carte). miPTY ne prend rien et ne garantit pas le service : confirme prix et conditions avec eux."},
+  es: {btn: "Explorar", more: "Ver dónde reservar", title: "¿Qué hacemos, fren?", all: "Todo", search: "Buscar: San Blas, buceo, Boquete…", partner: "Socio", none: "Nada por aquí… todavía. 🦥", luck: "🎲 ¡Wepa! Sorpréndeme", wa: "Escribir", web: "Web", map: "Mapa",
+       note: "Números publicados por los propios negocios (sin WhatsApp, el botón abre su web o el mapa). Wepa no cobra ni garantiza el servicio: confirma precio y condiciones con ellos."},
+  en: {btn: "Explore", more: "See where to book", title: "What's the plan?", all: "All", search: "Search: San Blas, diving, Boquete…", partner: "Partner", none: "Nothing here… yet. 🦥", luck: "🎲 ¡Wepa! Surprise me", wa: "Message", web: "Website", map: "Map",
+       note: "Numbers published by the businesses themselves (no WhatsApp: the button opens their website or the map). Wepa takes no fee and doesn't guarantee the service: confirm price and terms with them."},
+  fr: {btn: "Explorer", more: "Voir où réserver", title: "On fait quoi ?", all: "Tout", search: "Chercher : San Blas, plongée, Boquete…", partner: "Partenaire", none: "Rien par ici… pour l'instant. 🦥", luck: "🎲 ¡Wepa! Surprends-moi", wa: "Écrire", web: "Site", map: "Carte",
+       note: "Numéros publiés par les établissements eux-mêmes (sans WhatsApp, le bouton ouvre leur site ou la carte). Wepa ne prend rien et ne garantit pas le service : confirme prix et conditions avec eux."},
 };
 const PR = {
   es: {btn: "➕ ¿Falta un lugar? Propónlo", title: "Proponer un lugar", who: "Soy…", owner: "el dueño", client: "un cliente",
        cat: "Tipo", nom: "Nombre del negocio", zone: "Zona", zph: "Boquete, Casco Viejo…", que: "¿Qué ofrece?", qph: "Tour de café, hostal con piscina…",
        wa: "WhatsApp del negocio (si lo sabes)", site: "Web o Instagram (opcional)", me: "Tu contacto (opcional, solo para verificar; no se publica)",
        send: "Enviar", note: "Lo revisamos antes de publicarlo. Si eres el dueño, te escribiremos para confirmar.",
-       ok: "¡Gracias! Lo revisaremos pronto.", back: "← Volver a la lista"},
+       ok: "¡Wepa, gracias! Lo revisamos pronto.", back: "← Volver a la lista"},
   en: {btn: "➕ Missing a place? Suggest it", title: "Suggest a place", who: "I'm…", owner: "the owner", client: "a customer",
        cat: "Type", nom: "Business name", zone: "Area", zph: "Boquete, Casco Viejo…", que: "What do they offer?", qph: "Coffee tour, hostel with a pool…",
        wa: "Business WhatsApp (if you know it)", site: "Website or Instagram (optional)", me: "Your contact (optional, only to check; never published)",
        send: "Send", note: "We review it before publishing. If you're the owner, we'll message you to confirm.",
-       ok: "Thanks! We'll review it soon.", back: "← Back to the list"},
+       ok: "¡Wepa! Thanks, we'll review it soon.", back: "← Back to the list"},
   fr: {btn: "➕ Il manque une adresse ? Propose-la", title: "Proposer une adresse", who: "Je suis…", owner: "le propriétaire", client: "un client",
        cat: "Type", nom: "Nom de l'établissement", zone: "Zone", zph: "Boquete, Casco Viejo…", que: "Que propose-t-il ?", qph: "Tour du café, auberge avec piscine…",
        wa: "WhatsApp de l'établissement (si tu le connais)", site: "Site ou Instagram (facultatif)", me: "Ton contact (facultatif, seulement pour vérifier ; jamais publié)",
        send: "Envoyer", note: "On vérifie avant de publier. Si tu es le propriétaire, on t'écrira pour confirmer.",
-       ok: "Merci ! On regarde ça bientôt.", back: "← Retour à la liste"},
+       ok: "¡Wepa ! Merci, on regarde ça bientôt.", back: "← Retour à la liste"},
 };
 function prT() { return PR[lang] || PR.en; }
 function propShow(on) {
-  for (const id of ["dirC", "dirQ", "dirList"]) $(id).hidden = on;
+  for (const id of ["dirC", "dirLuck", "dirQ", "dirList", "dirN"]) $(id).hidden = on;
   $("propBtn").parentNode.hidden = on; $("propBox").hidden = !on;
 }
 $("propBtn").onclick = () => {
@@ -397,33 +412,49 @@ $("propBtn").onclick = () => {
     } catch (e) { $("p_msg").textContent = "⚠ " + T.err; $("p_send").disabled = false; }
   };
 };
-const WA_SVG = document.querySelector("#waBtn svg").outerHTML;
+const WA_SVG = $("waSvg").innerHTML;
 let DIR = null, dirCat = "";
 function ctT() { return CT[lang] || CT.en; }
 function ctLabel() { $("waLab").textContent = ctT().btn; }
+const TILES = ["#ffb703", "#7ad3c7", "#ff8fa3", "#9fd36b", "#8ecae6", "#f4a261", "#c9a7f5", "#ffd6a5"];
+function tileOf(id) { const i = (DIR.categories || []).findIndex(c => c.id === id); return i < 0 ? "#fff" : TILES[i % TILES.length]; }
 function dirDraw() {
   const t = ctT(), q = $("dirQ").value.toLowerCase().trim(), box = $("dirList");
   const icon = Object.fromEntries((DIR.categories || []).map(c => [c.id, c.icon]));
+  $("dirLuck").textContent = t.luck;
   $("dirC").innerHTML = "";
-  for (const c of [{id: "", icon: "", label: t.all}, ...(DIR.categories || [])]) {
+  for (const c of [{id: "", icon: "✨", label: t.all}, ...(DIR.categories || [])]) {
     const b = document.createElement("button"); b.type = "button"; b.className = c.id === dirCat ? "on" : "";
-    b.textContent = (c.icon ? c.icon + " " : "") + c.label; b.onclick = () => { dirCat = c.id; dirDraw(); };
+    b.style.setProperty("--tile", c.id ? tileOf(c.id) : "#fff");
+    b.innerHTML = `<span>${esc(c.icon || "📍")}</span>${esc(c.label)}`;
+    b.onclick = () => { dirCat = c.id; dirDraw(); };
     $("dirC").appendChild(b);
   }
   box.innerHTML = "";
   for (const c of DIR.contacts || []) {
     if (dirCat && c.cat !== dirCat) continue;
     if (q && ![c.title, c.name, c.zone, c.what, c.why].join(" ").toLowerCase().includes(q)) continue;
-    const go = goLink(c, "annuaire");
-    const r = document.createElement("div"); r.className = "crow";
+    const via = c.via || "wa", r = document.createElement("div");
+    r.className = "crow"; r.style.setProperty("--tile", tileOf(c.cat));
+    const chips = [c.zone && "📍 " + c.zone, c.tier && "$".repeat(c.tier), c.rating && "⭐ " + c.rating].filter(Boolean);
+    const stay = c.cat === "dormir";                // un hôtel : son nom en titre (le titre « Dormir en … » se répète)
     r.innerHTML = `<div class="ic">${esc(icon[c.cat] || "📍")}</div>
-      <div class="tx"><b>${esc(c.title)}${c.partner ? `<span class="tag">${esc(t.partner)}</span>` : ""}</b>
-      <small>${esc(c.name)}${c.zone ? " · " + esc(c.zone) : ""}</small>${c.rating ? `<small>⭐ ${esc(c.rating)}</small>` : ""}${c.why ? `<small>${esc(c.why)}</small>` : ""}${c.price ? `<small>💲 ${esc(c.price)}</small>` : ""}${c.hours ? `<small>🕘 ${esc(c.hours)}</small>` : ""}</div>
-      <a class="go ${esc(c.via || "wa")}" href="${esc(go)}" target="_blank" rel="noopener" aria-label="${esc(c.name)}">${goIcon(c)}</a>`;
+      <div class="tx"><b>${esc(stay ? c.name : c.title)}${c.partner ? `<span class="tag">${esc(t.partner)}</span>` : ""}</b>
+      <small>${stay ? esc(c.why || "") : esc(c.name) + (c.why ? " — " + esc(c.why) : "")}</small>
+      ${c.price ? `<small>💲 ${esc(c.price)}</small>` : ""}${c.hours ? `<small>🕘 ${esc(c.hours)}</small>` : ""}
+      <div class="chips">${chips.map(x => `<i>${esc(x)}</i>`).join("")}</div></div>
+      <a class="go ${esc(via)}" href="${esc(goLink(c, "annuaire"))}" target="_blank" rel="noopener" aria-label="${esc(c.name)}">${via === "wa" ? WA_SVG : `<span class="e">${goIcon(c)}</span>`}${esc(t[via] || "")}</a>`;
     box.appendChild(r);
   }
   if (!box.children.length) box.innerHTML = `<div class="none">${esc(t.none)}</div>`;
 }
+$("dirLuck").onclick = () => {             // une idée au hasard dans la rubrique affichée
+  const rows = [...$("dirList").querySelectorAll(".crow")];
+  if (!rows.length) return;
+  const r = rows[Math.floor(Math.random() * rows.length)];
+  rows.forEach(x => x.classList.remove("pick"));
+  r.scrollIntoView({behavior: "smooth", block: "center"}); void r.offsetWidth; r.classList.add("pick");
+};
 $("dirQ").oninput = () => DIR && dirDraw();
 function goLink(c, from) { return `${API}/go/${encodeURIComponent(c.id)}?l=${lang}&f=${from}&s=${encodeURIComponent(session || "")}`; }
 function goIcon(c) { return c.via === "web" ? "🌐" : c.via === "map" ? "📍" : WA_SVG; }
@@ -440,7 +471,7 @@ function recoRow(items) {            // une recommandation : un bouton par adres
 function dirChip(items) {            // une réponse sur un sujet qui a des contacts : un raccourci vers eux
   if (!items || !items.length || $("waBtn").style.display === "none") return;
   const r = document.createElement("div"); r.className = "recos";
-  const b = document.createElement("button"); b.type = "button"; b.textContent = "📇 " + ctT().more;
+  const b = document.createElement("button"); b.type = "button"; b.textContent = "🧭 " + ctT().more;
   b.onclick = () => openDir(items[0].cat);
   r.appendChild(b); $("chat").appendChild(r); scrollEnd();
 }
