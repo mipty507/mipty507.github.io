@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wepa · tu guía de Panamá</title>
-<meta name="theme-color" content="#00a6a6">
+<meta name="theme-color" content="#0b4fa8">
 <script>document.write('<script src="config.js?v=' + Date.now() + '"><\/script>')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,11 +12,11 @@
 <style>
   /* Bus « diablo rojo » + mola guna : couleurs peintes, contours noirs, bordures en couches */
   :root {
-    --c: #00a6a6;          /* accent : turquoise Caraïbe, ou la couleur de l'hôtel */
-    --red: #d62828;        /* rouge diablo rojo */
-    --mango: #ffb703;      /* jaune mangue */
-    --ink: #141414;        /* noir des contours de mola */
-    --sea: #eef9f8;        /* fond du chat */
+    --c: #0b4fa8;          /* bleu du drapeau panaméen (ou la couleur de l'hôtel) */
+    --red: #d21034;        /* rouge du drapeau */
+    --mango: #5db4ff;      /* bleu ciel : boutons, cadres, sélection */
+    --ink: #0f1b2d;        /* bleu nuit des contours */
+    --sea: #f0f6fd;        /* fond du chat : blanc bleuté */
     --muted: #4b5a5a;
   }
   * { box-sizing: border-box; }
@@ -54,6 +54,17 @@
   .name { font: 24px/1 Bungee, sans-serif; letter-spacing: .5px; text-shadow: 2px 2px 0 var(--ink);
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sub { font-size: 13px; font-weight: 600; opacity: .95; margin-top: 3px; }
+  /* le W de Wepa : une vague (mangue, ombre noire), qui ondule doucement */
+  .name .wv { width: 36px; height: 24px; vertical-align: -3px; margin-right: 1px; overflow: visible; }
+  .wv path { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+  .wv path.sh { stroke: var(--red); transform: translate(2px, 2px); }
+  .name .wv { animation: surf 4s ease-in-out infinite; transform-origin: 50% 60%; }
+  @keyframes surf { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-2px) rotate(-4deg); } }
+  /* « epa » suit la vague : chaque lettre monte et descend, avec un temps de retard sur la précédente */
+  .name .fl i { font-style: normal; display: inline-block; animation: swell 4s ease-in-out infinite; }
+  .name .fl i:nth-child(1) { animation-delay: .25s; } .name .fl i:nth-child(2) { animation-delay: .5s; } .name .fl i:nth-child(3) { animation-delay: .75s; }
+  @keyframes swell { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3px) rotate(-5deg); } }
+  @media (prefers-reduced-motion: reduce) { .name .wv, .name .fl i { animation: none; } }
   #langs { margin-left: auto; display: flex; gap: 4px; flex: none; }
   #langs button { border: 2px solid var(--ink); background: #fff; color: var(--ink); border-radius: 9px;
                   padding: 3px 7px; font-size: 12px; font-weight: 800; cursor: pointer; }
@@ -94,6 +105,9 @@
   .fact { font-size: 14px; }
   .fact b { color: var(--ink); }
   .qpos { font-size: 13px; font-weight: 600; margin-top: 4px; }
+  .think i { font-style: normal; animation: blink 1.4s infinite both; }
+  .think i:nth-child(2) { animation-delay: .2s; } .think i:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: .15; } 40% { opacity: 1; } }
 
   /* photos sous la réponse */
   .pics { align-self: flex-start; display: flex; gap: 10px; overflow-x: auto; max-width: 100%; padding: 2px 2px 6px; }
@@ -204,8 +218,8 @@
 <div class="app">
 <header>
   <div class="bar">
-    <div class="av" aria-hidden="true"><div class="ring"></div><div class="pic" id="avpic">W!</div></div>
-    <div class="who"><div class="name" id="name">Wepa</div><div class="sub" id="sub"></div></div>
+    <div class="av" aria-hidden="true"><div class="ring"></div><div class="pic" id="avpic"><svg class="wv" style="width:30px;height:22px" viewBox="0 0 46 30" aria-hidden="true"><path class="sh" d="M3 5 C7 5 7 26 12 26 C17 26 17 11 23 11 C29 11 29 26 34 26 C39 26 39 5 43 5"/><path d="M3 5 C7 5 7 26 12 26 C17 26 17 11 23 11 C29 11 29 26 34 26 C39 26 39 5 43 5"/></svg></div></div>
+    <div class="who"><div class="name" id="name" aria-label="Wepa"><svg class="wv" viewBox="0 0 46 30" aria-hidden="true"><path class="sh" d="M3 5 C7 5 7 26 12 26 C17 26 17 11 23 11 C29 11 29 26 34 26 C39 26 39 5 43 5"/><path d="M3 5 C7 5 7 26 12 26 C17 26 17 11 23 11 C29 11 29 26 34 26 C39 26 39 5 43 5"/></svg><span class="fl"><i>e</i><i>p</i><i>a</i></span></div><div class="sub" id="sub"></div></div>
     <div id="langs"><button data-l="es">ES</button><button data-l="en">EN</button><button data-l="fr">FR</button></div>
   </div>
   <figure class="window" id="win" aria-live="off"><div class="empty">¡WEPA!</div><figcaption class="cap" id="cap"></figcaption></figure>
@@ -231,7 +245,7 @@ let lang = ["es", "en", "fr"].includes(L) ? L : "en";
 let T, HOTEL_INFO = null, started = false;
 const ALL = {
   es: {sub: "Tu guía de Panamá, 24 h", ph: "Pregunta lo que quieras…", queue: n => `Hay ${n} pregunta(s) antes de la tuya`,
-       know: "¿Sabías que…", slow: "Busco en mis fichas, puede tardar hasta un minuto.",
+       know: "¿Sabías que…", slow: "Pensando",
        foot: "Asistente automático de Neuralytic. La información es indicativa: confirma precios y horarios con el hotel.",
        hello: "¡Qué xopá! Soy Wepa. Pregúntame sobre transporte, San Blas, Bocas, Boquete, presupuesto o seguridad en Panamá.",
        chips: ["✈️ ¿Cómo llego del aeropuerto?", "🏝️ ¿Cómo ir a San Blas?", "🌙 ¿Es seguro Casco Viejo de noche?"], err: "No pude conectarme. Revisa tu conexión y vuelve a intentarlo.",
@@ -247,7 +261,7 @@ const ALL = {
                "Las molas, de capas de tela recortadas, son el arte de las mujeres guna.",
                "El carnaval dura los cuatro días antes del Miércoles de Ceniza."]},
   en: {sub: "Your Panama guide, 24/7", ph: "Ask me anything…", queue: n => `${n} question(s) ahead of yours`,
-       know: "Did you know…", slow: "I'm checking my notes, this can take up to a minute.",
+       know: "Did you know…", slow: "Thinking",
        foot: "Automated assistant by Neuralytic. Information is indicative: confirm prices and times with the hotel.",
        hello: "¡Qué xopá! (that's Panamanian for “what's up”) I'm Wepa. Ask me about getting around, San Blas, Bocas, Boquete, budget or safety in Panama.",
        chips: ["✈️ How do I get from the airport?", "🏝️ How to get to San Blas?", "🌙 Is Casco Viejo safe at night?"], err: "I couldn't connect. Check your connection and try again.",
@@ -263,7 +277,7 @@ const ALL = {
                "Molas, made of layered cut-out fabric, are the art of Guna women.",
                "Carnival runs for the four days before Ash Wednesday."]},
   fr: {sub: "Ton guide du Panama, 24 h/24", ph: "Pose ta question…", queue: n => `${n} question(s) avant la tienne`,
-       know: "Le savais-tu ?", slow: "Je cherche dans mes fiches, ça peut prendre jusqu'à une minute.",
+       know: "Le savais-tu ?", slow: "Je réfléchis",
        foot: "Assistant automatique de Neuralytic. Informations indicatives : confirme prix et horaires avec l'hôtel.",
        hello: "¡Qué xopá ! (« quoi de neuf ? » en panaméen) Je suis Wepa. Pose-moi tes questions sur les transports, les San Blas, Bocas, Boquete, le budget ou la sécurité au Panama.",
        chips: ["✈️ Comment venir de l'aéroport ?", "🏝️ Comment aller aux San Blas ?", "🌙 Casco Viejo, c'est sûr le soir ?"], err: "Connexion impossible. Vérifie ta connexion et réessaie.",
@@ -285,7 +299,7 @@ try { session = localStorage.getItem("mipty_s") || ""; } catch (e) {}
 if (!session) { session = Math.random().toString(36).slice(2) + Date.now().toString(36); try { localStorage.setItem("mipty_s", session); } catch (e) {} }
 
 const $ = id => document.getElementById(id);
-const media = src => API + "/" + src.replace(/^\//, "");
+const media = src => /^https?:\/\//.test(src) ? src : API + "/" + src.replace(/^\//, "");
 
 function applyLang(l) {   // change l'interface ; le bot répond dans la langue de la question
   lang = l; T = ALL[l]; document.documentElement.lang = l;
@@ -483,6 +497,10 @@ async function openDir(cat) {
   $("dirList").innerHTML = ""; $("propBtn").textContent = prT().btn; propShow(false); $("dir").showModal();
   try {
     DIR = await (await fetch(`${API}/api/annuaire?lang=${lang}`)).json();
+    if (HOTEL_INFO) {                         // page d'un hôtel : jamais d'autres hôtels dans Explorar
+      DIR.categories = (DIR.categories || []).filter(c => c.id !== "dormir");
+      DIR.contacts = (DIR.contacts || []).filter(c => c.cat !== "dormir");
+    }
     if (dirCat && !(DIR.categories || []).some(c => c.id === dirCat)) dirCat = "";
     dirDraw();
   } catch (e) { $("dirList").innerHTML = `<div class="none">${esc(T.err)}</div>`; }
@@ -493,7 +511,7 @@ let factIdx = Math.floor(Math.random() * 11);
 function waitHTML(extra) {
   const f = T.facts[factIdx % T.facts.length];
   return `<div class="road"><i>🚌</i></div><div class="fact"><b>${esc(T.know)}</b> ${esc(f)}</div>` +
-         `<div class="qpos">${esc(extra || T.slow)}</div>`;
+         (extra ? `<div class="qpos">${esc(extra)}</div>` : `<div class="qpos think">${esc(T.slow)}<i>.</i><i>.</i><i>.</i></div>`);
 }
 
 async function ask(text) {
@@ -502,7 +520,7 @@ async function ask(text) {
   $("chips").style.display = "none"; $("q").value = ""; $("send").disabled = true;
   bubble("u", esc(text));
   const w = bubble("b wait", waitHTML());
-  const factTimer = setInterval(() => { factIdx++; const q = w.querySelector(".qpos"); w.innerHTML = waitHTML(q && q.textContent); }, 9000);
+  const factTimer = setInterval(() => { factIdx++; const q = w.querySelector(".qpos:not(.think)"); w.innerHTML = waitHTML(q && q.textContent); }, 9000);
   try {
     const r = await fetch(API + "/api/ask", {method: "POST", headers: {"Content-Type": "application/json"},
       body: JSON.stringify({question: text, session, hotel: HOTEL, lang})});
@@ -518,7 +536,7 @@ async function ask(text) {
         if (j.reco) recoRow(j.contacts); else dirChip(j.contacts);
         feedbackRow(j.qa_id); break;
       }
-      if (j.status === "queued" && j.position > 1) { const q = w.querySelector(".qpos"); if (q) q.textContent = T.queue(j.position - 1); }
+      if (j.status === "queued" && j.position > 1) { const q = w.querySelector(".qpos"); if (q) { q.className = "qpos"; q.textContent = T.queue(j.position - 1); } }
       else if (j.partial) { clearInterval(factTimer); w.className = "m b"; w.innerHTML = md(j.partial); }
       scrollEnd();
     }
@@ -531,6 +549,11 @@ $("f").onsubmit = e => { e.preventDefault(); ask($("q").value); };
 let show = [], showIdx = 0, showTimer = null, showLang = null;
 async function loadShow() {
   if (showLang === lang) return; showLang = lang;
+  if (HOTEL_INFO && HOTEL_INFO.photo) {       // la page d'un hôtel : sa photo, fixe, en bandeau et en fond
+    $("win").querySelector(".empty")?.remove(); clearInterval(showTimer);
+    show = [{src: HOTEL_INFO.photo, caption: HOTEL_INFO.name, credit: "", page: ""}]; step();
+    return;
+  }
   try {
     const d = await (await fetch(API + "/api/showcase?lang=" + lang)).json();
     show = d.photos || [];
@@ -544,7 +567,7 @@ function swap(box, src, alt) {
   const img = new Image(); img.alt = alt || ""; img.decoding = "async";
   img.onload = () => {
     box.querySelectorAll("img").forEach(x => { x.classList.remove("on"); setTimeout(() => x.remove(), 1300); });
-    [...box.childNodes].forEach(n => n.nodeType === 3 && n.remove());          // les initiales cèdent la place aux photos
+    [...box.childNodes].forEach(n => (n.nodeType === 3 || (n.classList && n.classList.contains("wv"))) && n.remove());          // les initiales cèdent la place aux photos
     box.insertBefore(img, box.querySelector("figcaption")); requestAnimationFrame(() => img.classList.add("on"));
   };
   img.src = src;
@@ -552,7 +575,7 @@ function swap(box, src, alt) {
 function step() {
   const p = show[showIdx % show.length]; showIdx++;
   swap($("win"), media(p.src), p.caption);
-  $("cap").innerHTML = `<span>${esc(p.caption)}</span><a href="${esc(p.page)}" target="_blank" rel="noopener">📷 ${esc(p.credit)}</a>`;
+  $("cap").innerHTML = `<span>${esc(p.caption)}</span>` + (p.credit ? `<a href="${esc(p.page)}" target="_blank" rel="noopener">📷 ${esc(p.credit)}</a>` : "");
   if (getComputedStyle($("bg")).display !== "none") swap($("bg"), media(p.src), "");
   swap($("avpic"), media(p.src), "");
 }
@@ -565,9 +588,10 @@ async function start() {
       if (h.name) {
         document.title = h.name; $("name").textContent = h.name;
         $("avpic").textContent = h.name.split(/\s+/).filter(w => /^[A-Za-zÀ-ÿ]/.test(w) && !/^(hotel|hostal|the|el|la|los|las)$/i.test(w)).slice(0, 2).map(w => w[0].toUpperCase()).join("") || h.name[0];
-        document.documentElement.style.setProperty("--c", h.color || "#00a6a6");
-        document.querySelector('meta[name="theme-color"]').content = h.color || "#00a6a6";
+        document.documentElement.style.setProperty("--c", h.color || "#0b4fa8");
+        document.querySelector('meta[name="theme-color"]').content = h.color || "#0b4fa8";
         HOTEL_INFO = h;
+        if (h.explore) $("waBtn").style.display = "";   // l'hôtel a choisi d'afficher Explorar (sans les autres hôtels)
       }
     } catch (e) { console.error("miPTY: API injoignable", API, e); }
   }
